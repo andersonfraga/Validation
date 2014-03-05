@@ -1,11 +1,13 @@
-Respect\Validation [![Build Status](https://secure.travis-ci.org/Respect/Validation.png)](http://travis-ci.org/Respect/Validation)
+Respect\Validation
 ==================
 
-The most awesome validation engine ever created for PHP.
+[![Build Status](https://secure.travis-ci.org/Respect/Validation.png)](http://travis-ci.org/Respect/Validation) [![Latest Stable Version](https://poser.pugx.org/respect/validation/v/stable.png)](https://packagist.org/packages/respect/validation) [![Total Downloads](https://poser.pugx.org/respect/validation/downloads.png)](https://packagist.org/packages/respect/validation) [![Latest Unstable Version](https://poser.pugx.org/respect/validation/v/unstable.png)](https://packagist.org/packages/respect/validation) [![License](https://poser.pugx.org/respect/validation/license.png)](https://packagist.org/packages/respect/validation)
 
-- Fluent/Chained builders like `v::numeric()->positive()->between(1, 256)->validate($myNumber)` (more samples below)
-- Informative, awesome exceptions
-- More than 30 fully tested validators
+[The most awesome validation engine ever created for PHP.](http://bit.ly/1a1oeQv)
+
+- Complex (custom) rules made simple: `v::numeric()->positive()->between(1, 256)->validate($myNumber)`.
+- Awesome (customizable, iterable) exceptions.
+- >80 (fully tested) validators.
 
 Installation
 ------------
@@ -302,6 +304,7 @@ Reference
   * v::phone()
   * v::sf()
   * v::zend()
+  * v::nfeAccessKey()
 
 ### Alphabetically
 
@@ -538,6 +541,10 @@ See also:
   * v::cpf() - Validates the Brazillian CPF number.
   * v::cnh() - Validates the Brazillian driver's license.
 
+#### v::nfeAccessKey()
+
+Validates the access key of the Brazilian electronic invoice (NFe).
+
 #### v::consonants() *(deprecated)*
 
 Validates strings that contain only consonants. It's now deprecated, consonant should be used
@@ -701,20 +708,27 @@ See also:
   * v::consonant()
 
 #### v::domain()
+#### v::domain($checkTLD=true)
 
 Validates domain names.
 
     v::domain()->validate('google.com');
 
+You can skip *top level domain* (TLD) checks to validate internal
+domain names:
+
+    v::domain(false)->validate('dev.machine.local')
+
 This is a composite validator, it validates several rules
 internally:
 
-  * If input is an IP address, it validates
-  * If input contains whitespace, it fails
-  * If input not contains any dot, it fails
-  * If input has less than two parts, it fails
-  * Input must end with a top-level-domain to pass
-  * Each part must be alphanumeric and not start with an hyphen
+  * If input is an IP address, it validates.
+  * If input contains whitespace, it fails.
+  * If input not contains any dot, it fails.
+  * If input has less than two parts, it fails.
+  * Input must end with a top-level-domain to pass (if not skipped).
+  * Each part must be alphanumeric and not start with an hyphen.
+  * [PunnyCode][] is accepted for [Internationalizing Domain Names in Applications][IDNA].
 
 Messages for this validator will reflect rules above.
 
@@ -1459,7 +1473,7 @@ See also
 
 #### v::uploaded()
 
-Validates if the given data is a file was uploaded via HTTP POST.
+Validates if the given data is a file that was uploaded via HTTP POST.
 
     v::uploaded()->validate('/path/of/an/uploaded/file'); //true
 
@@ -1554,29 +1568,5 @@ See also:
 
   * v::sf()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+[PunnyCode]: http://en.wikipedia.org/wiki/Punycode "Wikipedia: Punnycode"
+[IDNA]: http://en.wikipedia.org/wiki/Internationalized_domain_name#Internationalizing_Domain_Names_in_Applications "Wikipedia: Internationalized domain name"
