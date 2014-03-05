@@ -46,6 +46,8 @@ class DomainTest extends \PHPUnit_Framework_TestCase
             array('example.com'),
             array('example-hyphen.com'),
             array('1.2.3.4'),
+            array('dvhgfrhf.com'),
+            array('dvhgfrhf.com.br'),
         );
     }
 

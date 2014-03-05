@@ -40,6 +40,7 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
             array('4024 007 193 879'), // Visa 13
             array('340-3161-9380-9364'), // AmericanExpress
             array('30351042633884'), // Dinners
+            array('4111111111111111'), // Mastercard Test number
         );
     }
 
